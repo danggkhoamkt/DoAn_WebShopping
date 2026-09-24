@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - Admin</title>
+
+    <link href="~/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/admin/css/metisMenu.min.css" rel="stylesheet">
+    <link href="~/admin/css/startmin.css" rel="stylesheet">
+    <link href="~/admin/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+
+<body>
+    <div id="wrapper">
+
+        <partial name="_Navigation" />
+        <partial name="_Sidebar" />
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+
+    </div>
+
+    <script src="~/admin/js/jquery.min.js"></script>
+    <script src="~/admin/js/bootstrap.min.js"></script>
+    <script src="~/admin/js/metisMenu.min.js"></script>
+    <script src="~/admin/js/startmin.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
