@@ -1,0 +1,23 @@
+@model WebShopping.Models.Category
+
+@{
+    ViewData["Title"] = "Xóa danh mục";
+}
+
+<h1 class="page-header">Xóa danh mục</h1>
+
+<div class="alert alert-warning">Bạn có chắc chắn muốn xóa danh mục này?</div>
+
+<dl class="dl-horizontal">
+    <dt>Tên danh mục</dt>
+    <dd>@Model.CategoryName</dd>
+
+    <dt>Mô tả</dt>
+    <dd>@Model.Description</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="CategoryId" />
+    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+    <a asp-action="Index" class="btn btn-default">Hủy</a>
+</form>

@@ -1,0 +1,49 @@
+@model IEnumerable<WebShopping.Models.Product>
+
+@{
+    ViewData["Title"] = "Sản phẩm";
+}
+
+<h1 class="page-header">Sản phẩm</h1>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">+ Thêm sản phẩm</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th>Danh mục</th>
+            <th>Giá</th>
+            <th style="width: 160px;">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="~/client/img/product-img/@item.ImageUrl" alt="@item.ProductName"
+                             style="width:60px;height:60px;object-fit:cover;" />
+                    }
+                </td>
+                <td>@item.ProductName</td>
+                <td>@item.Category?.CategoryName</td>
+                <td>@item.Price.ToString("N0") đ</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-sm btn-warning">Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-sm btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

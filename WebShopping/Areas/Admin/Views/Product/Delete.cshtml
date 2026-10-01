@@ -1,0 +1,36 @@
+@model WebShopping.Models.Product
+
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+}
+
+<h1 class="page-header">Xóa sản phẩm</h1>
+
+<div class="alert alert-warning">Bạn có chắc chắn muốn xóa sản phẩm này?</div>
+
+<div class="row">
+    <div class="col-lg-2">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src="~/client/img/product-img/@Model.ImageUrl" style="width:100%;object-fit:cover;" />
+        }
+    </div>
+    <div class="col-lg-6">
+        <dl class="dl-horizontal">
+            <dt>Tên sản phẩm</dt>
+            <dd>@Model.ProductName</dd>
+
+            <dt>Danh mục</dt>
+            <dd>@Model.Category?.CategoryName</dd>
+
+            <dt>Giá</dt>
+            <dd>@Model.Price.ToString("N0") đ</dd>
+        </dl>
+    </div>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="ProductId" />
+    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+    <a asp-action="Index" class="btn btn-default">Hủy</a>
+</form>
