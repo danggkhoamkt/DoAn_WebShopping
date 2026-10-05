@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebShopping")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+75ff0c7f693b2ce039c6a8d0dbec0147e3a1f1a4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d688852dda5ee7f23e1fc2f45d6c25d7423a1a9d")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebShopping")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebShopping")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

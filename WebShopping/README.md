@@ -66,7 +66,3 @@ Models/          Category, Product, Order, OrderDetail, User
 wwwroot/client   Template Karl
 wwwroot/admin    Template Startmin
 ```
-
-## Ghi chú
-
-Mật khẩu admin đang lưu dạng chữ (theo yêu cầu bài lab). Khi triển khai thật nên băm mật khẩu.
