@@ -1,24 +1,34 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebShopping.Data;
 using WebShopping.Models;
 
-namespace WebShopping.Controllers;
-
-public class HomeController : Controller
+namespace WebShopping.Controllers
 {
-    public IActionResult Index()
+    public class HomeController : Controller
     {
-        return View();
-    }
+        private readonly AppDbContext _context;
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        public HomeController(AppDbContext context)
+        {
+            _context = context;
+        }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        public async Task<IActionResult> Index()
+        {
+            // Lấy 9 sản phẩm mới nhất
+            var products = await _context.Products
+                .Include(p => p.Category)
+                .OrderByDescending(p => p.ProductId)
+                .Take(9)
+                .ToListAsync();
+
+            return View(products);
+        }
+
+        public IActionResult Error()
+        {
+            return View();
+        }
     }
 }

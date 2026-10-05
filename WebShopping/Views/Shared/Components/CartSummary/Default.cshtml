@@ -1,0 +1,47 @@
+@model List<WebShopping.Models.CartItem>
+@{
+    var count = Model.Sum(x => x.Quantity);
+    var total = Model.Sum(x => x.LineTotal);
+}
+<div class="cart">
+    <a asp-controller="Cart" asp-action="Index" id="header-cart-btn">
+        <span class="cart_quantity">@count</span>
+        <i class="ti-bag"></i> Giỏ hàng @total.ToString("N0") đ
+    </a>
+    <ul class="cart-list">
+        @if (!Model.Any())
+        {
+            <li>
+                <div class="cart-item-desc">
+                    <h6>Giỏ hàng trống</h6>
+                </div>
+            </li>
+        }
+        else
+        {
+            foreach (var item in Model.Take(4))
+            {
+                <li>
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId" class="image">
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <img src="~/client/img/product-img/@item.ImageUrl" class="cart-thumb" alt="@item.ProductName">
+                        }
+                    </a>
+                    <div class="cart-item-desc">
+                        <h6>
+                            <a asp-controller="Product" asp-action="Details"
+                               asp-route-id="@item.ProductId">@item.ProductName</a>
+                        </h6>
+                        <p>@item.Quantity x - <span class="price">@item.UnitPrice.ToString("N0") đ</span></p>
+                    </div>
+                </li>
+            }
+            <li class="total">
+                <span class="pull-right">Tổng: @total.ToString("N0") đ</span>
+                <a asp-controller="Cart" asp-action="Index" class="btn btn-sm btn-cart">Giỏ hàng</a>
+                <a asp-controller="Cart" asp-action="Checkout" class="btn btn-sm btn-checkout">Thanh toán</a>
+            </li>
+        }
+    </ul>
+</div>

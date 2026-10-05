@@ -1,0 +1,24 @@
+<div class="catagories-side-menu">
+    <div id="sideMenuClose">
+        <i class="ti-close"></i>
+    </div>
+    <div class="nav-side-menu">
+        <div class="menu-list">
+            <h6>Danh mục</h6>
+            <ul id="menu-content" class="menu-content collapse out">
+                <li>
+                    <a asp-controller="Product" asp-action="Index">Tất cả sản phẩm</a>
+                </li>
+                <li>
+                    <a asp-controller="Cart" asp-action="Index">Giỏ hàng</a>
+                </li>
+                <li>
+                    <a asp-controller="Cart" asp-action="Checkout">Thanh toán</a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="Admin" asp-action="Index">Quản trị</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

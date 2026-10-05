@@ -1,0 +1,71 @@
+@model WebShopping.Models.Order
+@{
+    ViewData["Title"] = "Thanh toán";
+    var cart = ViewBag.Cart as List<WebShopping.Models.CartItem> ?? new List<WebShopping.Models.CartItem>();
+    var total = cart.Sum(x => x.LineTotal);
+}
+<div class="checkout_area section_padding_100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="checkout_details_area mt-50 clearfix">
+                    <div class="cart-page-heading">
+                        <h5>Thông tin giao hàng</h5>
+                        <p>Vui lòng điền đầy đủ thông tin bắt buộc</p>
+                    </div>
+                    <form asp-action="Checkout" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label asp-for="CustomerName"></label>
+                                <input asp-for="CustomerName" class="form-control" />
+                                <span asp-validation-for="CustomerName" class="text-danger"></span>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label asp-for="PhoneNumber"></label>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="0909123456" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label asp-for="Address"></label>
+                                <input asp-for="Address" class="form-control" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label asp-for="Note"></label>
+                                <textarea asp-for="Note" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn karl-checkout-btn">Đặt hàng</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-5 ml-lg-auto">
+                <div class="order-details-confirmation">
+                    <div class="cart-page-heading">
+                        <h5>Đơn hàng của bạn</h5>
+                        <p>Chi tiết</p>
+                    </div>
+                    <ul class="order-details-form mb-4">
+                        <li><span>Sản phẩm</span> <span>Thành tiền</span></li>
+                        @foreach (var item in cart)
+                        {
+                            <li>
+                                <span>@item.ProductName x @item.Quantity</span>
+                                <span>@item.LineTotal.ToString("N0") đ</span>
+                            </li>
+                        }
+                        <li><span>Vận chuyển</span> <span>Miễn phí</span></li>
+                        <li><span>Tổng</span> <span>@total.ToString("N0") đ</span></li>
+                    </ul>
+                    <p class="mb-0">Thanh toán khi nhận hàng (COD).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

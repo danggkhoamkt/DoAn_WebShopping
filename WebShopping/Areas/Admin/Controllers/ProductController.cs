@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebShopping.Data;
 using WebShopping.Models;
-
+using Microsoft.AspNetCore.Authorization;
 namespace WebShopping.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class ProductController : Controller
     {
@@ -140,6 +141,12 @@ namespace WebShopping.Areas.Admin.Controllers
         {
             var product = await _context.Products.FindAsync(id);
             if (product == null) return NotFound();
+            bool hasOrders = await _context.OrderDetails.AnyAsync(d => d.ProductId == id);
+            if (hasOrders)
+            {
+                TempData["Error"] = "Không thể xóa sản phẩm vì đã tồn tại trong đơn hàng.";
+                return RedirectToAction(nameof(Index));
+            }
 
             DeleteImageFile(product.ImageUrl);
 

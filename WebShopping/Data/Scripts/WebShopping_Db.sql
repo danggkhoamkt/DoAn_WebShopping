@@ -1,0 +1,89 @@
+-- USE master;
+-- GO
+-- IF DB_ID(N'WebShopping_Db') IS NULL
+--     CREATE DATABASE WebShopping_Db;
+-- GO
+-- USE WebShopping_Db;
+-- GO
+-- IF OBJECT_ID(N'dbo.OrderDetails', N'U') IS NOT NULL DROP TABLE dbo.OrderDetails;
+-- IF OBJECT_ID(N'dbo.Orders', N'U') IS NOT NULL DROP TABLE dbo.Orders;
+-- IF OBJECT_ID(N'dbo.Products', N'U') IS NOT NULL DROP TABLE dbo.Products;
+-- IF OBJECT_ID(N'dbo.Categories', N'U') IS NOT NULL DROP TABLE dbo.Categories;
+-- IF OBJECT_ID(N'dbo.Users', N'U') IS NOT NULL DROP TABLE dbo.Users;
+-- IF OBJECT_ID(N'dbo.__EFMigrationsHistory', N'U') IS NOT NULL DROP TABLE dbo.__EFMigrationsHistory;
+-- GO
+-- CREATE TABLE dbo.__EFMigrationsHistory (
+--     MigrationId nvarchar(150) NOT NULL PRIMARY KEY,
+--     ProductVersion nvarchar(32) NOT NULL
+-- );
+-- CREATE TABLE dbo.Categories (
+--     CategoryId int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+--     CategoryName nvarchar(200) NOT NULL,
+--     Description nvarchar(200) NULL
+-- );
+-- CREATE TABLE dbo.Users (
+--     UserId int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+--     Username nvarchar(50) NOT NULL,
+--     Password nvarchar(255) NOT NULL,
+--     FullName nvarchar(100) NOT NULL,
+--     Role nvarchar(20) NOT NULL
+-- );
+-- CREATE TABLE dbo.Orders (
+--     OrderId int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+--     CustomerName nvarchar(200) NOT NULL,
+--     PhoneNumber nvarchar(200) NOT NULL,
+--     Address nvarchar(max) NOT NULL,
+--     Note nvarchar(max) NULL,
+--     OrderDate datetime2 NOT NULL,
+--     Status int NOT NULL,
+--     TotalAmount decimal(18,2) NOT NULL
+-- );
+-- CREATE TABLE dbo.Products (
+--     ProductId int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+--     ProductName nvarchar(200) NOT NULL,
+--     ImageUrl nvarchar(200) NULL,
+--     Price decimal(18,2) NOT NULL,
+--     Description nvarchar(max) NULL,
+--     CategoryId int NOT NULL,
+--     CONSTRAINT FK_Products_Categories_CategoryId FOREIGN KEY (CategoryId)
+--         REFERENCES dbo.Categories (CategoryId) ON DELETE CASCADE
+-- );
+-- CREATE TABLE dbo.OrderDetails (
+--     OrderDetailId int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+--     OrderId int NOT NULL,
+--     ProductId int NOT NULL,
+--     Quantity int NOT NULL,
+--     UnitPrice decimal(18,2) NOT NULL,
+--     CONSTRAINT FK_OrderDetails_Orders_OrderId FOREIGN KEY (OrderId)
+--         REFERENCES dbo.Orders (OrderId) ON DELETE CASCADE,
+--     CONSTRAINT FK_OrderDetails_Products_ProductId FOREIGN KEY (ProductId)
+--         REFERENCES dbo.Products (ProductId) ON DELETE CASCADE
+-- );
+-- CREATE INDEX IX_Products_CategoryId ON dbo.Products (CategoryId);
+-- CREATE INDEX IX_OrderDetails_OrderId ON dbo.OrderDetails (OrderId);
+-- CREATE INDEX IX_OrderDetails_ProductId ON dbo.OrderDetails (ProductId);
+-- INSERT INTO dbo.__EFMigrationsHistory (MigrationId, ProductVersion)
+-- VALUES (N'20261001072604_InitialCreate', N'10.0.12');
+-- INSERT INTO dbo.Users (Username, Password, FullName, Role)
+-- VALUES (N'admin', N'123456', N'Quản trị viên', N'Admin');
+-- INSERT INTO dbo.Categories (CategoryName, Description) VALUES
+-- (N'Woman Wear', N'Thời trang nữ'),
+-- (N'Man Wear', N'Thời trang nam'),
+-- (N'Children', N'Thời trang trẻ em'),
+-- (N'Bags & Purses', N'Túi xách'),
+-- (N'Eyewear', N'Kính mắt'),
+-- (N'Footwear', N'Giày dép');
+-- INSERT INTO dbo.Products (ProductName, ImageUrl, Price, Description, CategoryId) VALUES
+-- (N'Yellow Cocktail Dress', N'product-1.jpg', 890000, N'Đầm cocktail vàng, phù hợp dự tiệc.', 1),
+-- (N'White Summer Dress', N'product-2.jpg', 750000, N'Đầm hè trắng nhẹ nhàng.', 1),
+-- (N'Classic Man Shirt', N'product-3.jpg', 420000, N'Áo sơ mi nam cổ điển.', 2),
+-- (N'Casual Man Jacket', N'product-4.jpg', 980000, N'Áo khoác nam casual.', 2),
+-- (N'Kids Color Dress', N'product-5.jpg', 320000, N'Váy màu sắc cho bé.', 3),
+-- (N'Kids Sport Set', N'product-6.jpg', 280000, N'Bộ thể thao trẻ em.', 3),
+-- (N'Leather Handbag', N'product-7.jpg', 1250000, N'Túi xách da thời trang.', 4),
+-- (N'Mini Crossbody Bag', N'product-8.jpg', 540000, N'Túi đeo chéo nhỏ gọn.', 4),
+-- (N'Round Sunglasses', N'product-9.jpg', 390000, N'Kính râm tròn unisex.', 5),
+-- (N'Classic Sneakers', N'product-10.jpg', 690000, N'Giày sneaker cổ điển.', 6),
+-- (N'Ankle Boots', N'product-11.jpg', 880000, N'Boot cổ thấp.', 6),
+-- (N'Evening Heels', N'product-12.jpg', 720000, N'Giày cao gót dự tiệc.', 6);
+-- GO

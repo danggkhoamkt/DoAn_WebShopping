@@ -9,18 +9,22 @@ namespace WebShopping.Models
 
         [Required(ErrorMessage = "Tên đăng nhập không được để trống")]
         [StringLength(50)]
-        public string Username { get; set; }
+        [Display(Name = "Tên đăng nhập")]
+        public string Username { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Mật khẩu không được để trống")]
         [StringLength(255)]
-        public string Password { get; set; }
+        [Display(Name = "Mật khẩu")]
+        public string Password { get; set; } = string.Empty;
 
         [Required]
         [StringLength(100)]
-        public string FullName { get; set; }
+        [Display(Name = "Họ và tên")]
+        public string FullName { get; set; } = string.Empty;
 
         [Required]
         [StringLength(20)]
-        public string Role { get; set; }
+        [Display(Name = "Vai trò")]
+        public string Role { get; set; } = "Admin";
     }
 }

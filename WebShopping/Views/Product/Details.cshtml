@@ -1,0 +1,77 @@
+@model WebShopping.Models.Product
+@using WebShopping.Models
+
+@{
+    ViewData["Title"] = Model.ProductName;
+    var related = ViewBag.RelatedProducts as List<Product>;
+}
+
+<div class="container my-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Product" asp-action="Index"
+                                               asp-route-categoryId="@Model.CategoryId">@Model.Category?.CategoryName</a></li>
+                <li class="breadcrumb-item active">@Model.ProductName</li>
+            </ol>
+        </nav>
+
+        <div class="row g-5">
+            <div class="col-md-6">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="~/client/img/product-img/@Model.ImageUrl" class="img-fluid rounded" alt="@Model.ProductName">
+                }
+                else
+                {
+                    <div class="bg-light d-flex align-items-center justify-content-center" style="height:400px;">
+                        <span class="text-muted">Chưa có ảnh</span>
+                    </div>
+                }
+            </div>
+            <div class="col-md-6">
+                <h2>@Model.ProductName</h2>
+                <p class="text-muted">Danh mục: @Model.Category?.CategoryName</p>
+                <h3 class="text-danger mb-4">@Model.Price.ToString("N0") đ</h3>
+
+                <p>@Model.Description</p>
+
+                <form asp-controller="Cart" asp-action="AddToCart" method="get"
+                      class="d-flex align-items-center gap-3 mt-4">
+                    <input type="hidden" name="productId" value="@Model.ProductId" />
+                    <input type="number" name="quantity" value="1" min="1" class="form-control" style="width:90px;" />
+                    <button type="submit" class="btn btn-dark px-4">Thêm vào giỏ hàng</button>
+                </form>
+            </div>
+        </div>
+
+        @if (related != null && related.Any())
+        {
+            <div class="mt-5">
+                <h4 class="mb-4">Sản phẩm liên quan</h4>
+                <div class="row g-4">
+                    @foreach (var p in related)
+                    {
+                        <div class="col-6 col-md-3">
+                            <div class="card h-100 shadow-sm">
+                                <a asp-action="Details" asp-route-id="@p.ProductId">
+                                    @if (!string.IsNullOrEmpty(p.ImageUrl))
+                                    {
+                                        <img src="~/client/img/product-img/@p.ImageUrl" class="card-img-top"
+                                             style="height:180px;object-fit:cover;">
+                                    }
+                                </a>
+                                <div class="card-body text-center">
+                                    <h6 class="card-title">
+                                        <a asp-action="Details" asp-route-id="@p.ProductId"
+                                           class="text-decoration-none text-dark">@p.ProductName</a>
+                                    </h6>
+                                    <p class="fw-bold text-danger mb-0">@p.Price.ToString("N0") đ</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>

@@ -1,8 +1,96 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<WebShopping.Models.Product>
+
+@{
+    ViewData["Title"] = "Trang chủ";
+
+    // Ánh xạ tên danh mục trong DB sang class filter của theme Karl
+    // (theme chỉ có sẵn 5 nhóm filter: women, man, kids, access, shoes)
+    string GetFilterClass(string? categoryName)
+    {
+        return categoryName switch
+        {
+            "Woman Wear" => "women",
+            "Man Wear" => "man",
+            "Children" => "kids",
+            "Bags & Purses" => "access",
+            "Eyewear" => "access",
+            "Footwear" => "shoes",
+            _ => ""
+        };
+    }
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- ****** New Arrivals Area Start ****** -->
+<section class="new_arrivals_area section_padding_100_0 clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section_heading text-center">
+                    <h2>Sản phẩm mới nhất</h2>
+                    <p>Khám phá những sản phẩm thời trang mới nhất của chúng tôi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="karl-projects-menu mb-100">
+        <div class="text-center portfolio-menu">
+            <button class="btn active" data-filter="*">ALL</button>
+            <button class="btn" data-filter=".women">WOMAN</button>
+            <button class="btn" data-filter=".man">MAN</button>
+            <button class="btn" data-filter=".access">ACCESSORIES</button>
+            <button class="btn" data-filter=".shoes">SHOES</button>
+            <button class="btn" data-filter=".kids">KIDS</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row karl-new-arrivals">
+            @{
+                int i = 0;
+                var delays = new[] { "0.2s", "0.3s", "0.4s", "0.5s", "0.6s", "0.7s", "0.8s", "0.9s", "1s" };
+            }
+            @foreach (var product in Model)
+            {
+                var filterClass = GetFilterClass(product.Category?.CategoryName);
+                var delay = delays[i % delays.Length];
+                i++;
+
+                <!-- Single gallery Item -->
+                <div class="col-12 col-sm-6 col-md-4 single_gallery_item @filterClass wow fadeInUpBig"
+                     data-wow-delay="@delay">
+                    <!-- Product Image -->
+                    <div class="product-img">
+                        @if (!string.IsNullOrEmpty(product.ImageUrl))
+                        {
+                            <img src="~/client/img/product-img/@product.ImageUrl" alt="@product.ProductName">
+                        }
+                        <div class="product-quicview">
+                            <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId">
+                                <i class="ti-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Product Description -->
+                    <div class="product-description">
+                        <h4 class="product-price">@product.Price.ToString("N0") đ</h4>
+                        <p>
+                            <a asp-controller="Product" asp-action="Details" asp-route-id="@product.ProductId"
+                               class="text-decoration-none">
+                                @product.ProductName
+                            </a>
+                        </p>
+                        <!-- Add to Cart -->
+                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.ProductId"
+                           class="add-to-cart-btn">THÊM VÀO GIỎ</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- ****** New Arrivals Area End ****** -->
+
+<div class="container text-center mb-5">
+    <a asp-controller="Product" asp-action="Index" class="btn btn-dark px-4">Xem tất cả sản phẩm</a>
 </div>

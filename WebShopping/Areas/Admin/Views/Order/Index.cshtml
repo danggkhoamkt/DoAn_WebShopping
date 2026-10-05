@@ -1,0 +1,41 @@
+@model IEnumerable<WebShopping.Models.Order>
+@using WebShopping.Helpers
+@{
+    ViewData["Title"] = "Đơn hàng";
+}
+<h1 class="page-header">Đơn hàng</h1>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Khách hàng</th>
+            <th>Điện thoại</th>
+            <th>Ngày đặt</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>#@item.OrderId</td>
+                <td>@item.CustomerName</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@item.TotalAmount.ToString("N0") đ</td>
+                <td><span
+                    class="@OrderStatusHelper.CssClass(item.Status)">@OrderStatusHelper.ToVietnamese(item.Status)</span>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.OrderId" class="btn btn-sm btn-info">Chi tiết</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

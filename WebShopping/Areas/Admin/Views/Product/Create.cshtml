@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label>Ảnh sản phẩm</label>
                 <input type="file" name="ImageFile" class="form-control" accept="image/*" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                <span class="text-danger">@Html.ValidationMessage("ImageFile")</span>
             </div>
 
             <button type="submit" class="btn btn-primary">Lưu</button>

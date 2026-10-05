@@ -72,7 +72,11 @@
         </li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i> secondtruth <b class="caret"></b>
+                <i class="fa fa-user fa-fw"></i>
+                @(User.Identity != null && User.Identity.IsAuthenticated
+                    ? User.FindFirst(System.Security.Claims.ClaimTypes.GivenName)?.Value ?? User.Identity.Name
+                    : "Khách")
+                <b class="caret"></b>
             </a>
             <ul class="dropdown-menu dropdown-user">
                 <li>
@@ -83,7 +87,11 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <form asp-controller="Account" asp-action="Logout" asp-area="" method="post" class="px-3">
+                        <button type="submit" class="btn btn-link text-decoration-none p-0" style="color:inherit;">
+                            <i class="fa fa-sign-out fa-fw"></i> Đăng xuất
+                        </button>
+                    </form>
                 </li>
             </ul>
         </li>

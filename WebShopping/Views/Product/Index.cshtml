@@ -1,0 +1,87 @@
+@model IEnumerable<WebShopping.Models.Product>
+@using WebShopping.Models
+
+@{
+    ViewData["Title"] = "Sản phẩm";
+    var categories = ViewBag.Categories as List<Category>;
+    int? selectedCategoryId = ViewBag.SelectedCategoryId;
+}
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Bộ lọc danh mục -->
+        <div class="col-md-3 mb-4">
+            <h6 class="text-uppercase fw-bold mb-3">Danh mục</h6>
+            <ul class="list-unstyled">
+                <li class="mb-2">
+                    <a asp-action="Index"
+                       class="text-decoration-none @(selectedCategoryId == null ? "fw-bold text-danger" : "text-dark")">
+                        Tất cả sản phẩm
+                    </a>
+                </li>
+                @if (categories != null)
+                {
+                    foreach (var cat in categories)
+                    {
+                        <li class="mb-2">
+                            <a asp-action="Index" asp-route-categoryId="@cat.CategoryId"
+                               class="text-decoration-none @(selectedCategoryId == cat.CategoryId ? "fw-bold text-danger" : "text-dark")">
+                                @cat.CategoryName
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+
+        <!-- Danh sách sản phẩm -->
+        <div class="col-md-9">
+            <h4 class="mb-4">
+                @(selectedCategoryId == null
+                    ? "Tất cả sản phẩm"
+                    : categories?.FirstOrDefault(c => c.CategoryId == selectedCategoryId)?.CategoryName)
+                <span class="text-muted fs-6">(@Model.Count() sản phẩm)</span>
+            </h4>
+
+            <div class="row g-4">
+                @foreach (var product in Model)
+                {
+                    <div class="col-6 col-lg-4">
+                        <div class="card h-100 shadow-sm">
+                            <a asp-action="Details" asp-route-id="@product.ProductId">
+                                @if (!string.IsNullOrEmpty(product.ImageUrl))
+                                {
+                                    <img src="~/client/img/product-img/@product.ImageUrl" class="card-img-top"
+                                         alt="@product.ProductName" style="height:240px;object-fit:cover;">
+                                }
+                                else
+                                {
+                                    <div class="bg-light d-flex align-items-center justify-content-center"
+                                         style="height:240px;">
+                                        <span class="text-muted">Chưa có ảnh</span>
+                                    </div>
+                                }
+                            </a>
+                            <div class="card-body text-center">
+                                <h6 class="card-title">
+                                    <a asp-action="Details" asp-route-id="@product.ProductId"
+                                       class="text-decoration-none text-dark">
+                                        @product.ProductName
+                                    </a>
+                                </h6>
+                                <p class="fw-bold text-danger mb-0">@product.Price.ToString("N0") đ</p>
+                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.ProductId"
+                                   class="btn btn-sm btn-dark mt-2">Thêm vào giỏ</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (!Model.Any())
+            {
+                <p class="text-muted">Không có sản phẩm nào trong danh mục này.</p>
+            }
+        </div>
+    </div>
+</div>

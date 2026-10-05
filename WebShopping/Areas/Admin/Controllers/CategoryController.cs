@@ -2,9 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebShopping.Data;
 using WebShopping.Models;
-
+using Microsoft.AspNetCore.Authorization;
 namespace WebShopping.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class CategoryController : Controller
     {
