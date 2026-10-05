@@ -1094,6 +1094,11 @@ img {
 
 .product-img > img {
     width: 100%;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
     -webkit-transition-duration: 500ms;
     transition-duration: 500ms;
 }
@@ -1149,6 +1154,7 @@ img {
 
 .product-description {
     margin-top: 20px;
+    min-height: 130px;
 }
 
 .product-description h4 {

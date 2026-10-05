@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "H:\\4_ASPNET_Core\\OnTap\\DoAn_WebShopping\\WebShopping\\WebShopping.csproj": {}
+    "H:\\4_ASPNET_Core\\Final\\DoAn_WebShopping\\WebShopping\\WebShopping.csproj": {}
   },
   "projects": {
-    "H:\\4_ASPNET_Core\\OnTap\\DoAn_WebShopping\\WebShopping\\WebShopping.csproj": {
+    "H:\\4_ASPNET_Core\\Final\\DoAn_WebShopping\\WebShopping\\WebShopping.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\4_ASPNET_Core\\OnTap\\DoAn_WebShopping\\WebShopping\\WebShopping.csproj",
+        "projectUniqueName": "H:\\4_ASPNET_Core\\Final\\DoAn_WebShopping\\WebShopping\\WebShopping.csproj",
         "projectName": "WebShopping",
-        "projectPath": "H:\\4_ASPNET_Core\\OnTap\\DoAn_WebShopping\\WebShopping\\WebShopping.csproj",
+        "projectPath": "H:\\4_ASPNET_Core\\Final\\DoAn_WebShopping\\WebShopping\\WebShopping.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "H:\\4_ASPNET_Core\\OnTap\\DoAn_WebShopping\\WebShopping\\obj\\",
+        "outputPath": "H:\\4_ASPNET_Core\\Final\\DoAn_WebShopping\\WebShopping\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

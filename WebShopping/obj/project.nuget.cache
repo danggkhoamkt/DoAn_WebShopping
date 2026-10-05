@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SBR+oiHUxys=",
+  "dgSpecHash": "ajrGR8ylbvI=",
   "success": true,
-  "projectFilePath": "H:\\4_ASPNET_Core\\OnTap\\DoAn_WebShopping\\WebShopping\\WebShopping.csproj",
+  "projectFilePath": "H:\\4_ASPNET_Core\\Final\\DoAn_WebShopping\\WebShopping\\WebShopping.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\admin\\.nuget\\packages\\azure.core\\1.50.0\\azure.core.1.50.0.nupkg.sha512",
     "C:\\Users\\admin\\.nuget\\packages\\azure.identity\\1.17.1\\azure.identity.1.17.1.nupkg.sha512",
